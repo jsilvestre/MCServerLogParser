@@ -3,6 +3,8 @@
 define('APP_PATH','app');
 define('EXT','.php');
 
+require_once('bootstrap.php');
+
 /**
  * Application wrapper
  */
