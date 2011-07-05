@@ -9,6 +9,8 @@ class LogParser
 	
 	private $entries;
 	
+	private $lastUpdateOn;
+	
 	public function __construct()
 	{
 		$this->timer = new Timer();
@@ -16,31 +18,30 @@ class LogParser
 		$this->players = array();
 		
 		$this->entries = array();
+		
+		$this->lastUpdate = "2011-07-05 11:13:14";
 	}
 	
 	public function parse($file)
 	{
 		$this->timer->start();
 
-		$lastUpdate = strtotime("2010-05-23 20:37:29");
-
 		$path = 'data/logs/'.$file;
 
 		$lines = array_reverse(file($path)); // in order to go through a minimum of lines until we met the lastUpdate date
 		
 		$relevantCriterias = array('connection','tp','give','timing');
-
 		foreach($lines as $element)
 		{
 			$entry="";
 
 			if(preg_match("#([0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}) (\[[A-Z]+\]) (.*)#",$element,$matches))
 			{
-				if(strtotime($matches[1]) <= $lastUpdate)
+				if(strtotime($matches[1]) <= strtotime($this->lastUpdate))
 				{
 					break;
 				}
-
+				
 				if(preg_match("#(\w+) \[.*\].*logged.*#",$matches[3],$info))
 				{
 					$action = "connection";
@@ -92,8 +93,13 @@ class LogParser
 
 		$this->timer->stop();
 
-		$fin = $this->entries[0]['date'];
-		$debut = $this->entries[count($this->entries)-1]['date'];
+		if(count($this->entries) > 0)
+		{
+			$fin = $this->entries[0]['date'];
+			$debut = $this->entries[count($this->entries)-1]['date'];
+
+			$this->setLastUpdate($fin);
+		}
 	}
 	
 	public function getEntries()
@@ -109,5 +115,15 @@ class LogParser
 	public function getTimer()
 	{
 		return $this->timer;
+	}
+	
+	public function getLastUpdate()
+	{
+		return $this->lastUpdate;
+	}
+	
+	public function setLastUpdate($lastUpdate)
+	{
+		$this->lastUpdate = $lastUpdate;
 	}
 }
