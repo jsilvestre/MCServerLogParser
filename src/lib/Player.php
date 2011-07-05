@@ -63,6 +63,47 @@ class Player
 		return $this->nick;
 	}
 	
+	public function computeUptime($entries)
+	{
+		
+		$entries = array_reverse($entries); // put back the array in the right order
+		
+		$tempConnectionDate = 0;
+		$tempDisconnectionDate = 0;
+		
+		foreach($entries as $entry)
+		{			
+			if($entry['action'] == 'connection')
+			{
+				if(!$this->isOnline)
+				{
+					$this->isOnline = true;
+					$tempConnectionDate = strtotime($entry['date']);
+				}
+			}
+			else if($entry['action'] == 'disconnection')
+			{
+				if($this->isOnline)
+				{
+					$this->isOnline = false;
+					$tempDisconnectionDate = strtotime($entry['date']);
+					$duration = $tempDisconnectionDate - $tempConnectionDate;
+					$this->increaseStat('uptime','total',$duration);
+					
+					if($duration > $this->getStat('uptime','longest'))
+					{
+						$this->increaseStat('uptime','longest',$duration);
+					}
+						
+					if($duration < $this->getStat('uptime','shortest') || $this->getStat('uptime','shortest') == 0)
+					{
+						$this->increaseStat('uptime','shortest',$duration);
+					}
+				}
+			}
+		}	
+	}
+	
 	public function toXMLString()
 	{
 		return '<player nick="'.$this->nick.'">
