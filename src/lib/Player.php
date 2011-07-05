@@ -47,11 +47,36 @@ class Player
 			
 		if(!is_null($option))
 		{
-			$this->stats[$criteria][$option] = $this->stats[$criteria][$option] + $value;
+			if($option == "total")
+				$this->stats[$criteria][$option] = $this->stats[$criteria][$option] + $value;
+			else
+				$this->stats[$criteria][$option] = $value;
 		}
 		else
 		{
 			$this->stats[$criteria] = $this->stats[$criteria] + $value;
 		}
+	}
+	
+	public function getNick()
+	{
+		return $this->nick;
+	}
+	
+	public function toXMLString()
+	{
+		return '<player nick="'.$this->nick.'">
+				<stats>
+					<stat id="connection" value="'.$this->getStat('connection').'" />
+					<stat id="give" value="'.$this->getStat('give').'" />
+					<stat id="tp" value="'.$this->getStat('tp').'" />
+					<stat id="timing" value="'.$this->getStat('timing').'" />
+					<stat id="uptime">
+						<option id="total" value="'.$this->getStat('uptime','total').'" />
+						<option id="shortest" value="'.$this->getStat('uptime','shortest').'" />
+						<option id="longest" value="'.$this->getStat('uptime','longest').'" />
+					</stat>
+				</stats>
+			</player>';
 	}
 }
