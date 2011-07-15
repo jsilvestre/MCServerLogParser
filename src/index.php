@@ -53,7 +53,6 @@ ob_end_clean();
 	<div id="header">
 		<h1>MC Server Log Parser</h1>
 		<a href="index.php?page=overall">Overall stats</a> - 
-		<a href="index.php?page=user/stats">User stats</a> -
 		<a href="index.php?page=admin">Admin</a>"
 	</div>
 	
