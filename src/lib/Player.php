@@ -64,15 +64,16 @@ class Player
 	}
 	
 	public function computeUptime($entries)
-	{
-		
-		$entries = array_reverse($entries); // put back the array in the right order
-		
+	{				
 		$tempConnectionDate = 0;
 		$tempDisconnectionDate = 0;
 		
 		foreach($entries as $entry)
-		{			
+		{	
+			
+			if($entry['nick'] == $this->getNick())
+			{
+			
 			if($entry['action'] == 'connection')
 			{
 				if(!$this->isOnline)
@@ -100,8 +101,8 @@ class Player
 						$this->increaseStat('uptime','shortest',$duration);
 					}
 				}
-			}
-		}	
+			}}
+		}
 	}
 	
 	public function toXMLString()

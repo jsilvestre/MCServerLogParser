@@ -19,7 +19,7 @@ class EntryParser
 		$this->document = new SimpleXMLElementExt($xmlOrigin);
 	}
 	
-	public function parse($file,array $restrict=array())
+	public function parse($file)
 	{
 		
 		$this->timer->start();
@@ -32,31 +32,12 @@ class EntryParser
 				
 			foreach($this->document->children() as $element)
 			{
-				$entry = array();
-				
-				if(count($restrict) == 0)
-				{
-					// retrieve all the elements
-					$entry = array(
-									'date' => (string) $element['date'],
-									'nick' => (string) $element['nick'],
-									'action' => (string) $element['action'],
-									'raw' => (string) $element['raw']
-								);
-				}
-				else
-				{
-					if(count($restrict) == 2 && isset($element[$restrict[0]]) && $element[$restrict[0]] == $restrict[1])
-					{
-						$entry = array(
-										'date' => (string) $element['date'],
-										'nick' => (string) $element['nick'],
-										'action' => (string) $element['action'],
-										'raw' => (string) $element['raw']
-									);
-					}
-			
-				}
+				$entry = array(
+								'date' => (string) $element['date'],
+								'nick' => (string) $element['nick'],
+								'action' => (string) $element['action'],
+								'raw' => (string) $element['raw']
+							);
 				
 				if(count($entry) > 0)
 				{
@@ -80,6 +61,7 @@ class EntryParser
 		$xmlEntryStr = '<entry nick="'.$entry['nick'].'" date="'.$entry['date'].'" action="'.$entry['action'].'" raw="'.$entry['raw'].'" />';
 		
 		$xmlEntry = simpleXML_load_string($xmlEntryStr,'SimpleXMLElementExt');
+
 		$this->document->appendXML($xmlEntry);		
 					
 		$this->entries[] = $entry;		

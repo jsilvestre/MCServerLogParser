@@ -19,7 +19,7 @@ class LogParser
 		
 		$this->entries = array();
 		
-		$this->lastUpdate = "2011-07-05 11:13:14";
+		$this->lastUpdate = "1970-01-01 00:00:00";
 	}
 	
 	public function parse($file)
@@ -97,7 +97,7 @@ class LogParser
 		{
 			$fin = $this->entries[0]['date'];
 			$debut = $this->entries[count($this->entries)-1]['date'];
-
+			$this->entries = array_reverse($this->entries);
 			$this->setLastUpdate($fin);
 		}
 	}
