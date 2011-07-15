@@ -9,7 +9,7 @@ class SimpleXMLElementExt extends SimpleXMLElement
  */
 public function appendXML($append)
 {
-    if ($append) {
+    if (!empty($append)) {
         if (strlen(trim((string) $append))==0) {
             $xml = $this->addChild($append->getName());
             foreach($append->children() as $child) {
@@ -19,7 +19,8 @@ public function appendXML($append)
             $xml = $this->addChild($append->getName(), (string) $append);
         }
         foreach($append->attributes() as $n => $v) {
-            $xml->addAttribute($n, $v);
+			if(!array_key_exists($n,$xml->attributes()))
+            	$xml->addAttribute($n, $v);
         }
     }
 }
