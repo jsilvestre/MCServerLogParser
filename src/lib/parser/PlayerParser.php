@@ -55,7 +55,7 @@ class PlayerParser
 					}
 				}
 
-				$this->players[] = $player;
+				$this->players[$player->getNick()] = $player;
 			}
 		}
 		
