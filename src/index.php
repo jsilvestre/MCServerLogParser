@@ -16,7 +16,7 @@ if(!empty($_GET['page']))
 }
 else
 {
-	$page = 'main';
+	$page = 'overall';
 }
 
 // we look for the requested file in the file system
