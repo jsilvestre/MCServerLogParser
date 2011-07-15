@@ -3,3 +3,4 @@ src/data/entries.xml
 src/data/players.xml
 src/data/logs/compiled.log
 src/data/logs/server.log
+src/data/logs/server.last.log
