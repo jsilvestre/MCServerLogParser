@@ -105,6 +105,18 @@ class Player
 		}
 	}
 	
+	public function getFormattedStat($id)
+	{
+		if($id == "uptime")
+		{
+			return formatDurationArray(durationToArray($this->getStat($id,'total')));
+		}
+		else
+		{
+			return $this->getStat($id);
+		}
+	}
+	
 	public function toXMLString()
 	{
 		return '<player nick="'.$this->nick.'">
