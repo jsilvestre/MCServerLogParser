@@ -9,11 +9,11 @@ $renderTimer->start();
 
 $display.= 'Last Update : '.$playerP->getLastUpdate().'<br />';
 $display.= '==STATS GENERALES==<br />';
-$display.='Nombre de connexion : '.getTotal($players,'connection').'<br />';
-$display.='Nombre de give : '.getTotal($players,'give').'<br />';
-$display.='Nombre de tp : '.getTotal($players,'tp').'<br />';
-$display.='Nombre de set time : '.getTotal($players,'timing').'<br />';
-$display.='Uptime cumulée : '.formatDurationArray(durationToArray(getTotal($players,'uptime','total'))).'<br />';
+$display.='number of connections: '.getTotal($players,'connection').'<br />';
+$display.='numver of /gives: '.getTotal($players,'give').'<br />';
+$display.='number of /tps: '.getTotal($players,'tp').'<br />';
+$display.='number of /set time: '.getTotal($players,'timing').'<br />';
+$display.='Total uptime: '.formatDurationArray(durationToArray(getTotal($players,'uptime','total'))).'<br />';
 
 $criterias = array('connection','give','tp','timing','uptime');
 foreach($criterias as $criteria)
@@ -41,7 +41,7 @@ foreach($criterias as $criteria)
 			$player->getStat("uptime");
 			$nbConnection = ($player->getStat('connection') == 0) ? 1 : $player->getStat('connection');
 			$averageDuration = round($player->getStat("uptime",'total') / $nbConnection,2);
-			$info = 'avec une durée de connexion moyenne de '.formatDurationArray(durationToArray($averageDuration)).'. Min='.formatDurationArray(durationToArray($player->getStat('uptime','shortest'))).' - Max='.formatDurationArray(durationToArray($player->getStat('uptime','longest')));
+			$info = 'average duration='.formatDurationArray(durationToArray($averageDuration)).'. Min='.formatDurationArray(durationToArray($player->getStat('uptime','shortest'))).' - Max='.formatDurationArray(durationToArray($player->getStat('uptime','longest')));
 		}
 
 		
@@ -51,19 +51,14 @@ foreach($criterias as $criteria)
 
 $renderTimer->stop();
 
-$display.= '<br /><br />Rendu généré en '.$renderTimer->getDuration(4).' secondes.<br />';
+$display.= '<br /><br />Generated in '.$renderTimer->getDuration(4).'s.<br />';
 
 
 ?>
 
 <div id="wrapper">
 	<div class="box">
-		<h2>Accueil</h2>
+		<h2>Overall statistics</h2>
 		<?php echo $display; ?>
 	</div>
-</div>
-
-<div id="action">
-	<h2>Actions possibles</h2>
-	<p>Aucune action possible...</p>
 </div>

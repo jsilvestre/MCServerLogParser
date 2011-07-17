@@ -7,6 +7,11 @@ It makes statistics from it.
 
 Feel free to make suggestions or even add features by yourself (but do not forget to push them to me ;-)).
 
+
+I know the code is dirty but I did it fast without thinking about how nice it could be :P
+
 ## Install
+Just put the files in your web server.
 
 ## How to use it
+Upload you server.log file via the admin page regularly and let the magics happen!
