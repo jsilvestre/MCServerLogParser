@@ -86,12 +86,7 @@ else
 ?>
 <div id="wrapper">
 	<div class="box">
-		<h2>Accueil</h2>
+		<h2>Upload</h2>
 		<?php echo $display; ?>
 	</div>
-</div>
-
-<div id="action">
-	<h2>Actions possibles</h2>
-	<p>Aucune action possible...</p>
 </div>
